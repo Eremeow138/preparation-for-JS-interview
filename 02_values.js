@@ -25,3 +25,4 @@ console.log('arrC ', arrС);
 // если сравнивать вычисляемые типы, то будет происходить сравнение по ссылке
 console.log(arrA === arrB); // true
 console.log(arrA === arrA.concat()); // false
+
