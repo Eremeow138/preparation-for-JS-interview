@@ -8,9 +8,11 @@ function sayHelloTo(name) {
 }
 
 const helloToElena = sayHelloTo('Elena');
+
 helloToElena();
 
 const helloToIgor = sayHelloTo('Igor');
+
 helloToIgor();
 
 // практическое применение замыканий
