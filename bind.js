@@ -10,6 +10,20 @@ info();
 info.bind(person)(1234, '@sgs/ru');
 info.bind(person, 1234, '@sgs/ru')();
 
+function bind(fn, context, ...rest) {
+  const a = { ...context };
+  const uniqId = Symbol('uniqId');
+
+  a[uniqId] = fn;
+
+  return function (...args) {
+    const result = a[uniqId](...rest.concat(args));
+
+    delete a[uniqId];
+
+    return result;
+  };
+}
 //1 simple way
 
 // function bind(fn, context, ...rest) {
@@ -22,15 +36,15 @@ info.bind(person, 1234, '@sgs/ru')();
 
 // 2 way
 
-// function bind(fn, context, ...rest) {
-//   return function (...args) {
-//     const unicId = Date.now().toString();
-//     context[unicId] = fn;
-//     const result = context[unicId](...rest.concat(args));
-//     delete context[unicId];
-//     return result;
-//   };
-// }
+function bind(fn, context, ...rest) {
+  return function (...args) {
+    const unicId = Date.now().toString();
+    context[unicId] = fn;
+    const result = context[unicId](...rest.concat(args));
+    delete context[unicId];
+    return result;
+  };
+}
 
 // 3 way es5
 // function bind(fn, context) {
@@ -60,5 +74,4 @@ function call(fn, context, ...args) {
   return result;
 }
 
-
-call(info, person, '1234', '@fdff')
+call(info, person, '1234', '@fdff');
